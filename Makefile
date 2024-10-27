@@ -153,6 +153,7 @@ UPROGS=\
 	$U/_pingpong\
 	$U/_primes\
 	$U/_find\
+	$U/_xargs\
 	
 
 ifeq ($(LAB),syscall)
@@ -215,7 +216,10 @@ qemu: $K/kernel fs.img
 .gdbinit: .gdbinit.tmpl-riscv
 	sed "s/:1234/:$(GDBPORT)/" < $^ > $@
 
-qemu-gdb: $K/kernel .gdbinit fs.img
+.gen-gdbinit:
+	./gen_gdbinit.sh
+	
+qemu-gdb: $K/kernel .gdbinit .gen-gdbinit fs.img
 	@echo "*** Now run 'gdb' in another window." 1>&2
 	$(QEMU) $(QEMUOPTS) -S $(QEMUGDB)
 
