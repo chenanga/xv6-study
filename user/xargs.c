@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
     while (stop == 0) {
         idx = 0;
-        while (idx < sizeof(buf)) {
+        while (idx < sizeof(buf) - 1) {
             ret = read(0, tmp_buf, 1);
             if (ret == 0) {
                 exit(0);
